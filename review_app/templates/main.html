@@ -1,0 +1,436 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} {% endblock title %}
+
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="./assets/images/logo/favicon.ico" type="image/x-icon">
+
+    <!--
+      - custom css link
+    -->
+    <link rel="stylesheet" href="./assets/css/style-prefix.css">
+
+    <!--
+      - google font link
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="referrer" content="no-referrer-downgrade">
+
+    <style>
+        body {
+            background: radial-gradient(#fff, #ffd6d6);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        a {
+            text-decoration: none
+        }
+        
+        .product-viewtag {
+            background-color: red;
+            color: #fff;
+            font-size: 11px;
+            line-height: 1;
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            top: 22px;
+            margin-left: 17.5rem;
+            padding: 7px 10px;
+            font-weight: 600;
+            min-width: 45px;
+        }
+        
+        h6 {
+            color: red;
+        }
+        
+        .fa11 {
+            color: black;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        .pnn {
+            padding-left: 100px;
+            width: 40%;
+        }
+        
+        .collapse {
+            padding-left: 300px;
+        }
+        
+        .heder1 {
+            padding-top: 10px;
+        }
+        
+        .ratingreview {
+            color: red;
+            width: 50px;
+            height: 40px;
+            size: 70px;
+        }
+        
+        .ratingreview:active {
+            color: orange;
+        }
+        
+        .active {
+            font-weight: 800;
+        }
+        
+        .tren {
+            margin-left: 540px;
+            margin-top: 30px;
+        }
+        
+        .review2 {
+            width: 300px;
+            height: 350px;
+            border: 2px solid red;
+            padding: 50px;
+            margin: 20px;
+            position: absolute;
+            padding-left: 100px;
+            margin-left: 790px;
+        }
+        
+        .heading {
+            font-size: 25px;
+            margin-right: 25px;
+        }
+        
+        .fa {
+            font-size: 25px;
+        }
+        
+        .checked {
+            color: orange;
+        }
+        /* Three column layout */
+        
+        .side {
+            float: left;
+            width: 15%;
+            margin-top: 10px;
+        }
+        
+        .middle {
+            float: left;
+            width: 70%;
+            margin-top: 10px;
+        }
+        /* Place text to the right */
+        
+        .right {
+            text-align: right;
+        }
+        /* Clear floats after the columns */
+        
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* The bar container */
+        
+        .bar-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+            color: white;
+        }
+        /* Individual bars */
+        
+        .bar-5 {
+            width: 60%;
+            height: 18px;
+            background-color: #04AA6D;
+        }
+        
+        .bar-4 {
+            width: 30%;
+            height: 18px;
+            background-color: #2196F3;
+        }
+        
+        .bar-3 {
+            width: 10%;
+            height: 18px;
+            background-color: #00bcd4;
+        }
+        
+        .bar-2 {
+            width: 4%;
+            height: 18px;
+            background-color: #ff9800;
+        }
+        
+        .bar-1 {
+            width: 15%;
+            height: 18px;
+            background-color: #f44336;
+        }
+        /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+        
+        @media (max-width: 400px) {
+            .side,
+            .middle {
+                width: 100%;
+            }
+            /* Hide the right column on small screens */
+            .right {
+                display: none;
+            }
+        }
+        
+        .title1 {
+            text-align: center;
+            margin: 0 auto 20px;
+            position: relative;
+            /* line-height: 5px; */
+            color: rgb(45, 8, 252);
+        }
+        
+        .title {
+            text-align: center;
+            margin: 0 auto 20px;
+            position: relative;
+            /* line-height: 5px; */
+            color: #555;
+        }
+        
+        .title::after {
+            content: '';
+            background: #ff523b;
+            width: 130px;
+            height: 5px;
+            border-radius: 5px;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        
+        #countdown {
+            width: 100%;
+        }
+        
+        label {
+            clear: both;
+            display: block;
+        }
+        
+        #countdown span {
+            background: rgba(0, 0, 0, 0);
+            color: #000;
+            font-size: 26px;
+            font-weight: normal;
+            text-align: center;
+            width: 25%;
+            display: block;
+            float: left;
+            border-right: 1px solid #FFF;
+        }
+        
+        #countdown span:last-child {
+            border-right: 1px solid #313233;
+        }
+        
+        .countdown-desc {
+            color: var(--eerie-black);
+            font-size: var(--fs-9);
+            font-weight: var(--weight-600);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .countdown-content {
+            padding: 5px;
+            background: var(--cultured);
+            border-radius: var(--border-radius-md);
+            text-align: center;
+        }
+        
+        .countdown-desc {
+            color: var(--eerie-black);
+            font-size: var(--fs-9);
+            font-weight: var(--weight-600);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .countdown {
+            display: flex;
+            text-align: center;
+            padding-left: 380px;
+            color: red;
+            font-size: 30px;
+        }
+        
+        .countdown-content {
+            padding: 5px;
+            background: var(--cultured);
+            -webkit-border-radius: var(--border-radius-md);
+            border-radius: var(--border-radius-md);
+            text-align: center;
+        }
+        
+        .countdown-desc {
+            color: #000;
+            font-size: 20px;
+        }
+        
+        .whatsap {
+            position: fixed;
+            bottom: 10% !important;
+            left: 2%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    {% include 'navbar.html' %} {% block content %} {% endblock content %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/main1.js' %}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <a href="https://wa.me/+919565367271?text=Ranvijay%20is%20Welcome%20to%20You%20For%20Shopping" target="blank" class="whatsap">
+        <img src="{% static 'img/wtsp.png' %}" alt="" width="70px">
+    </a>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/624fbf62c72df874911dfe8d/1g03o77bl';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+
+    <script>
+        var availableTags = [];
+        $.ajax({
+            method: "GET",
+            url: "/product-list",
+
+            success: function(response) {
+                startAutocomplete(response);
+            }
+        });
+
+        function startAutocomplete(availableTags) {
+            $("#searchproducts").autocomplete({
+                source: availableTags
+            });
+        }
+    </script>
+    <script>
+        var availableTags = [];
+        $.ajax({
+            method: "GET",
+            url: "/product-price",
+
+            success: function(response) {
+                startAutocomplete(response);
+            }
+        });
+
+        function startAutocomplete(availableTags) {
+            $("#searchproducts").autocomplete({
+                source: availableTags
+            });
+        }
+    </script>
+    <script>
+        // set the date we're counting down to
+        var target_date = new Date('March, 13, 2022').getTime();
+
+        // variables for time units
+        var days, hours, minutes, seconds;
+
+        // get tag element
+        var countdown = document.getElementById('countdown');
+
+        // update the tag with id "countdown" every 1 second
+        setInterval(function() {
+
+            // find the amount of "seconds" between now and target
+            var current_date = new Date().getTime();
+            var seconds_left = (target_date - current_date) / 1000;
+
+            // do some time calculations
+            days = parseInt(seconds_left / 86400);
+            seconds_left = seconds_left % 86400;
+
+            hours = parseInt(seconds_left / 3600);
+            seconds_left = seconds_left % 3600;
+
+            minutes = parseInt(seconds_left / 60);
+            seconds = parseInt(seconds_left % 60);
+
+            // format countdown string + set tag value
+            countdown.innerHTML = '<span class="days">' + days + ' <label>Days</label></span> <span class="hours">' + hours + ' <label>Hours</label></span> <span class="minutes">' +
+                minutes + ' <label>Minutes</label></span> <span class="seconds">' + seconds + ' <label>Seconds</label></span>';
+
+        }, 1000);
+    </script>
+
+
+
+
+
+
+    <script>
+        alertify.set('notifier', 'position', 'top-right'); { %
+            for msg in messages %
+        }
+        alertify.success('{{ msg }}'); { % endfor %
+        }
+    </script>
+
+
+    {% block script %} {% endblock script %}
+
+    <script src="{% static 'js/checkout.js' %}"></script>
+
+
+
+</body>
+
+</html>

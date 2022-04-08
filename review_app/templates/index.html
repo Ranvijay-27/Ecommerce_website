@@ -1,0 +1,293 @@
+{% extends 'main.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% if request.user.is_authenticated %}
+<div class="col-md-6">
+    <h3 class="my-3">
+        {% endif %}
+    </h3>
+    <!-- product review -->
+    {% if request.user.is_authenticated %}
+    <div class="modal fade" id="productreview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Product Review</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addForm" method="POST" action="{% url 'poPup' %}">
+                        {% csrf_token %}
+                        <table class="table table-bordered">
+
+                            <div class=" text-center ">
+                                <h4> Give The Correct Details</h4>
+                            </div>
+                            <hr>
+                            <div class="form-group ">
+                                <label for=" ">Email: </label>
+                                <input type="text " class="form-control " placeholder="Enter Email " name="email">
+                            </div>
+
+                            <div class="form-group ">
+                                <label for=" ">Phone Number: </label>
+                                <input type="text " class="form-control " placeholder="Enter Phone Number " name="phone">
+                            </div>
+
+                            <tr>
+                                <td colspan="2"><button type="submit" class="btn btn-primary">Submit</button></td>
+                            </tr>
+                        </table>
+                        <p class="ajaxRes"></p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %} {% load static %}
+<h2 class="title1">Sales End in 5 Days</h2>
+<div id="countdown"></div>
+<div class="header">
+    <div class="contain">
+
+
+        <div class="row">
+            <div class="col-2">
+                <h1>Shop Here With <br> Special Discount</h1>
+                <p>
+                    Explore vast selection of products from Top Brands. Pay on Delivery. <br> Easy & Fast Delivery. No Cost EMI Available. Huge Selection. Best Deals. Great Offers.
+                </p>
+                <a href="" class="btn">Shop &#8594;</a>
+            </div>
+            <div class="col-2">
+                <img src=" {% static 'img/image1.png' %}" alt="">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Feathers Cat -->
+
+<div class="py-3 bg-primary">
+    <div class="container">
+        <a class="text-white" href=" {% url 'index' %} ">Home /</a>
+        <a class="text-white" href=" {% url 'colections' %} ">Collections /</a> Home / collections
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="title">Trending Product</h2>
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-3">
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <div class="category-imgage" align="center">
+                                <img src="{{ product.product_image.url }}" align="center" alt="category image" class="w-50" height="150px" />
+                            </div>
+                            <h4 class="text-center"> {{ product.name }} </h4>
+
+                            <h6 align="center"> Price Rs {{ product.price }}</h6>
+                            <div align="center">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star fa11"></span>
+                                <span class="fa fa-star fa11"></span>
+                            </div>
+
+
+
+
+                            <div class="col-md-8">
+                                <h2 class="mb-0">
+                                    {% if product.trending %}
+                                    <!-- <label style="font-size:16px" class="badge bg-danger trending_tag"> Trending </label> {% endif %} -->
+                                </h2>
+
+
+                                {% if product.quantity > 0 %}
+
+                                <label class="badge bg-success"> In Stock</label> {% else %}
+                                <label class="badge bg-success"> Out of stock</label> {% endif %}
+
+                            </div>
+                            <a align="right" class="text-white badge bg-success" href=" {% url 'colections' %} ">Buy</a>
+
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- feature pro -->
+<div class="small-container">
+    <h2 class="title">Features Product</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src=" {% static 'img/watch1.jpeg' %}" alt="">
+            <h4>Wall Watch</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>Rs 10050</p>
+        </div>
+        <div class="col-4">
+            <img src=" {% static 'img/shoes1.jpeg' %}" alt="">
+            <h4>Shoes</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>Rs 10050</p>
+        </div>
+        <div class="col-4">
+            <img src=" {% static 'img/tshirt1.jpeg' %}" alt="">
+            <h4>T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>Rs 10050</p>
+        </div>
+        <div class="col-4">
+            <img src=" {% static 'img/1.png' %}" alt="">
+            <h4>Watch</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>Rs 10050</p>
+        </div>
+    </div>
+    <h2 class="title">Latest Product</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src=" {% static 'img/watch2.jpeg' %}" alt="">
+            <h4>Wall Watch</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>Rs 10050</p>
+        </div>
+        <div class="col-4">
+            <img src=" {% static 'img/shoes3.jpeg' %}" alt="">
+            <h4>Shoes</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>Rs 10050</p>
+        </div>
+        <div class="col-4">
+            <img src=" {% static 'img/tshirt3.jpeg' %}" alt="">
+            <h4>T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>Rs 10050</p>
+        </div>
+        <div class="col-4">
+            <img src=" {% static 'img/3.png' %}" alt="">
+            <h4>Watch</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>Rs 10050</p>
+        </div>
+    </div>
+</div>
+<!-- Brand -->
+
+<div class="brands">
+    <div class="samll-containers">
+        <h2 class="title">Brands </h2>
+        <div class="row">
+            <div class="col-5">
+                <img src=" {% static 'img/logo-godrej.png' %}" alt="">
+            </div>
+            <div class="col-5">
+                <img src=" {% static 'img/logo-oppo.png' %}" alt="">
+            </div>
+            <div class="col-5">
+                <img src=" {% static 'img/logo-coca-cola.png' %}" alt="">
+            </div>
+            <div class="col-5">
+                <img src=" {% static 'img/logo-paypal.png' %}" alt="">
+            </div>
+            <div class="col-5">
+                <img src=" {% static 'img/logo-philips.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#productreview').modal("show")
+    })
+</script>
+
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/main1.js' %}"></script>
+{% load static %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock content %}

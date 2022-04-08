@@ -1,0 +1,172 @@
+{% extends 'main.html' %} {% block content %}{% load static %}
+
+<div class="py-3 bg-primary">
+    <div class="container">
+        <a class="text-white" href="{% url 'index' %}">Home /</a>
+        <a class="text-white" href="{% url 'cart' %}">Cart Item /</a>
+
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h6>Basic Details</h6>
+                    <hr>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label for="">First Name</label>
+                            <input type="text" name="fname" id="" class="form-control" placeholder="Enter Fisrt Name Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Last Name</label>
+                            <input type="text" name="lname" id="" class="form-control" placeholder="Enter Last Name ">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Email</label>
+                            <input type="email" name="email" id="fname" class="form-control" placeholder="Enter Email id">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Phone</label>
+                            <input type="text" name="phone" id="" class="form-control" placeholder="Enter Phone Number">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Address</label>
+                            <input type="text" name="address" id="" class="form-control" placeholder="Enter Address">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">City</label>
+                            <input type="text" name="city" id="" class="form-control" placeholder="Enter City">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">State</label>
+                            <input type="text" name="state" id="" class="form-control" placeholder="Enter State">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Country</label>
+                            <input type="text" name="country" id="" class="form-control" placeholder="Enter Country">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Pin code</label>
+                            <input type="text" name="pincode" id="" class="form-control" placeholder="Enter Pin code">
+                        </div>
+
+                        <div class="mt-3">
+
+                            <a href="success1" class="btn btn-success w-100"> Place Order</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h6>Order Summary</h6>
+                    <hr> {% if cartitem %}
+                    <table class="table table-stripeds table-bordereds">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Product
+                                </th>
+                                <th>
+                                    Quantity
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cartitem %}
+                            <tr>
+                                <td><img src="{{ item.product.product_image.url }}" height="50px" width="50px" class="me-2" alt="">{{ item.product.name }}</td>
+
+                                <td>{{ item.product_qty }}</td>
+
+                                <td>{{ item.product.price }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h6>Total Item
+                        <span class="float-end">Rs {{ total_price }}</span>
+                    </h6>
+                    <input type="hidden" value="COD" name="payment_mode">
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-success w-100"> Cod | Place Order</button>
+                        <button type="button" class="btn btn-primary paywithrozorpay w-100 mt-2"> Pay With Rozorpay</button>
+                        <div id="paypal-button-container" class="mt-3"></div>
+                    </div>
+                    {% else %}
+                    <h4>Your Cart Is Empty</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %} {% block script %}
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?&client-id=AehYKQLUx2oMQn8QJZdr1WvvqgVTsLDoiiC8pcsZuUXGnkrPn7wVQfPWQgUjYj13KEJo9xx_SluIik8j&currency=USD"></script>
+<script>
+    paypal.Buttons({
+        onclick: function(data, actions) {
+
+            var fname = $("[name = 'fname']").val();
+            var lname = $("[name = 'lname']").val();
+            var email = $("[name = 'email']").val();
+            var phone = $("[name = 'phone']").val();
+            var address = $("[name = 'address']").val();
+            var city = $("[name = 'city']").val();
+            var state = $("[name = 'state']").val();
+            var country = $("[name = 'country']").val();
+            var pincode = $("[name = 'pincode']").val();
+            if (fname == "" || lname == "" || email == "" || phone == "" || address == "" || city == "" || state == "" || country == "" || pincode == "") {
+                alert("All fields are mandatory");
+                swal("Alert !", "All fields are mandatory!", "error");
+                return false;
+            } else {
+                return true
+            }
+        },
+
+        // Sets up the transaction when a payment button is clicked
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '{{ total_price }}' // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction after payer approval
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                // Successful capture! For dev/demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                // When ready to go live, remove the alert and show a success message within this page. For example:
+                // var element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+{% endblock script %}
